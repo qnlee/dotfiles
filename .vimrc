@@ -1,91 +1,92 @@
-" Disable compatibility with vi which can cause unexpected issues.
-set nocompatible
+" SETTINGS  -------------------------------------------------------------- {{{
+set nocompatible   " Disable compatibility with vi which can cause unexpected issues.
+set number         " Add numbers to each line on the left-hand side.
+set cursorline     " Highlight cursor line underneath the cursor horizontally.
+set cursorcolumn   " Highlight cursor line underneath the cursor vertically.
+set shiftwidth=4   " Set shift width to 4 spaces.
+set tabstop=4      " Set tab width to 4 columns.
+set expandtab      " Use space characters instead of tabs.
+set nobackup       " Do not save backup files.
+set incsearch      " While searching though a file incrementally highlight matching characters as you type.
+set hlsearch       " Use highlighting when doing a search.
 
-" Enable type file detection. Vim will be able to try to detect the type of file in use.
-filetype on
-
-" Enable plugins and load plugin for the detected file type.
-filetype plugin on
-
-" Load an indent file for the detected file type.
-filetype indent on
-
-" Turn syntax highlighting on.
-syntax on
-
-" Add numbers to each line on the left-hand side.
-set number
-
-" Highlight cursor line underneath the cursor horizontally.
-set cursorline
-
-" Highlight cursor line underneath the cursor vertically.
-set cursorcolumn
-
-" Set shift width to 4 spaces.
-set shiftwidth=4
-
-" Set tab width to 4 columns.
-set tabstop=4
-
-" Use space characters instead of tabs.
-set expandtab
-
-" Do not save backup files.
-set nobackup
-
-" Do not let cursor scroll below or above N number of lines when scrolling.
-set scrolloff=10
-
-" Do not wrap lines. Allow long lines to extend as far as the line goes.
-set nowrap
-
-" While searching though a file incrementally highlight matching characters as you type.
-set incsearch
-
-" Ignore capital letters during search.
-set ignorecase
-
-" Override the ignorecase option if searching for capital letters.
-" This will allow you to search specifically for capital letters.
-set smartcase
-
-" Show partial command you type in the last line of the screen.
-set showcmd
-
-" Show the mode you are on the last line.
-set showmode
-
-" Show matching words during a search.
-set showmatch
-
-" Use highlighting when doing a search.
-set hlsearch
-
-" Set the commands to save in history default number is 20.
-set history=1000
-
-" Enable auto completion menu after pressing TAB.
-set wildmenu
-
-" Make wildmenu behave like similar to Bash completion.
-set wildmode=list:longest
-
-" There are certain files that we would never want to edit with Vim.
-" Wildmenu will ignore files with these extensions.
-set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
-
-" PLUGINS ---------------------------------------------------------------- {{{
-
-" Plugin code goes here.
-
+syntax on          " Turn syntax highlighting on.
+filetype on        " Enable type file detection. Vim will be able to try to detect the type of file in use.
+filetype plugin on " Enable plugins and load plugin for the detected file type.
+filetype indent on " Load an indent file for the detected file type.
+    
+set wildmenu                                                                 " Enable auto completion menu after pressing TAB.
+set wildmode=list:longest                                                    " Make wildmenu behave like similar to Bash completion.
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx " Wildmenu will ignore files with these extensions.
 " }}}
 
+call plug#begin()
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'puremourning/vimspector'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'unblevable/quick-scope'
+Plug 'AndrewRadev/inline_edit.vim'
+call plug#end()
 
 " MAPPINGS --------------------------------------------------------------- {{{
+noremap H ^
+noremap L $
+imap jj <Esc>
+set timeoutlen=1000
+inoremap jj <Esc>
+cnoremap jk <Esc>
+vnoremap jl <Esc>
 
-" Mappings code goes here.
+" Make window navigation easier by not using Control
+nnoremap <TAB>j <c-w>j
+nnoremap <TAB>h <c-w>h
+nnoremap <TAB>k <c-w>k
+nnoremap <TAB>l <c-w>l
 
+" Unhighlight search results
+nnoremap <leader>nh :nohlsearch<cr>
+
+" Quick opening/sourcing of .vimrc
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" Add empty lines without leaving normal mode
+nnoremap <leader>o o<esc>k
+nnoremap <leader>O O<esc>k
+
+" Wrap words or selections in quotes
+vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>
+vnoremap <leader>' <esc>`<i'<esc>`>la'<esc>
+vnoremap <leader>` <esc>`<i`<esc>`>la`<esc>
+nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
+nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
+nnoremap <leader>` viw<esc>a`<esc>bi`<esc>lel
+
+nmap <leader>si <Plug>VimspectorStepInto
+nmap <leader>so <Plug>VimspectorStepOut
+nmap <leader>n <Plug>VimspectorStepOver
+
+" Search selection with * in visual mode
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'gv'
+        call CmdLine("Ack '" . l:pattern . "' " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 " }}}
 
 
@@ -98,13 +99,5 @@ augroup filetype_vim
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
-" More Vimscripts code goes here.
-
 " }}}
 
-
-" STATUS LINE ------------------------------------------------------------ {{{
-
-" Status bar code goes here.
-
-" }}}
