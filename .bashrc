@@ -112,7 +112,7 @@ source "$OSH"/oh-my-bash.sh
 # Preferred editor for local and remote sessions
 
 # Compilation flags
-export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch x86_64"
 
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
@@ -153,23 +153,14 @@ alias sivrc='source ~/.ideavimrc'
 alias note='vim ~./notes.md'
 alias macd='open -a MacDown'
 
-
 # Env var settings
+export PATH=/opt/homebrew/bin:$PATH
+
 export PS1="\h:\W λ "
-
-# export PATH=/opt/homebrew/bin:$PATH
-export GOPATH=$HOME/go
-export GOROOT=/usr/local/Cellar/go/1.17/libexec
-
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:/Users/annalee/Library/Python/3.8/bin
-export PATH="${GOROOT}/bin:${PATH}"
-export PATH=/usr/local/Cellar/vim:$PATH
-export PATH=$PATH:/Library/Frameworks/Mono.framework/Versions/Current/Commands
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 
 export EDITOR=vim
 export VISUAL=$EDITOR
 
-export GOPATH="$HOME/go"; export GOROOT="/usr/local/Cellar/go/1.20.3/libexec"; export PATH="$GOPATH/bin:$PATH";
 
