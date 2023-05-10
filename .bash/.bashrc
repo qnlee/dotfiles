@@ -5,11 +5,12 @@ case $- in
 esac
 
 # Path to your oh-my-bash installation.
-export OSH='/Users/annalee/.oh-my-bash'
+export OSH='/Users/alee/.oh-my-bash'
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
 OSH_THEME="binaryanomaly"
+PROMPT='[\[$(date "+%Y-%m-%d %H:%M:%S")\]] \u@\h \[\033[00m\]\$ '
 
 # Uncomment the following line to use case-sensitive completion.
 # OMB_CASE_SENSITIVE="true"
@@ -93,6 +94,11 @@ aliases=(
 plugins=(
   git
   bashmarks
+  aws
+  goenv
+  golang
+  sudo
+  brew
 )
 
 # Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -155,12 +161,6 @@ alias macd='open -a MacDown'
 
 # Env var settings
 export PATH=/opt/homebrew/bin:$PATH
-
-export PS1="\h:\W λ "
-export CLICOLOR=1
-export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-
 export EDITOR=vim
 export VISUAL=$EDITOR
-
 

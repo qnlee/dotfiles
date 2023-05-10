@@ -99,5 +99,13 @@ augroup filetype_vim
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
+" More Vimscripts code goes here.
+
 " }}}
 
+
+" STATUS LINE ------------------------------------------------------------ {{{
+
+" Status bar code goes here.
+
+" }}}
