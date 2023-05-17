@@ -1,4 +1,25 @@
+call plug#begin()
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'puremourning/vimspector'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'unblevable/quick-scope'
+Plug 'AndrewRadev/inline_edit.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'vim-syntastic/syntastic'
+Plug 'morhetz/gruvbox'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'editorconfig/editorconfig-vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'ryanoasis/vim-devicons'
+Plug 'APZelos/blamer.nvim'
+call plug#end()
+
 " SETTINGS  -------------------------------------------------------------- {{{
+filetype on        " Enable type file detection. Vim will be able to try to detect the type of file in use.
+filetype plugin on " Enable plugins and load plugin for the detected file type.
+filetype indent on " Load an indent file for the detected file type.
 set nocompatible   " Disable compatibility with vi which can cause unexpected issues.
 set number         " Add numbers to each line on the left-hand side.
 set cursorline     " Highlight cursor line underneath the cursor horizontally.
@@ -9,28 +30,35 @@ set expandtab      " Use space characters instead of tabs.
 set nobackup       " Do not save backup files.
 set incsearch      " While searching though a file incrementally highlight matching characters as you type.
 set hlsearch       " Use highlighting when doing a search.
+set mouse=a
+set noswapfile
+set nowritebackup
+set title
+set wrap
+setlocal wrap
+set encoding=UTF-8
 
 syntax on          " Turn syntax highlighting on.
-filetype on        " Enable type file detection. Vim will be able to try to detect the type of file in use.
-filetype plugin on " Enable plugins and load plugin for the detected file type.
-filetype indent on " Load an indent file for the detected file type.
-    
+colorscheme gruvbox
+set background=dark
+set cursorline
+set hidden
+set list
+set listchars=tab:»·,trail:·
 set wildmenu                                                                 " Enable auto completion menu after pressing TAB.
 set wildmode=list:longest                                                    " Make wildmenu behave like similar to Bash completion.
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx " Wildmenu will ignore files with these extensions.
+
+" Attempt to fix mouse scroll on alacritty editor
+if $TERM == 'alacritty'
+  set ttymouse=sgr
+endif
+
 " }}}
 
-call plug#begin()
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'puremourning/vimspector'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'unblevable/quick-scope'
-Plug 'AndrewRadev/inline_edit.vim'
-call plug#end()
-
 " MAPPINGS --------------------------------------------------------------- {{{
+let mapleader = "\<Space>"
+
 noremap H ^
 noremap L $
 imap jj <Esc>
@@ -89,8 +117,10 @@ endfunction
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 " }}}
 
-
 " VIMSCRIPT -------------------------------------------------------------- {{{
+" Launch NERDTree on start-up
+autocmd VimEnter * NERDTree
+let g:NERDTreeShowHidden=1
 
 " This will enable code folding.
 " Use the marker method of folding.
@@ -99,13 +129,16 @@ augroup filetype_vim
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
-" More Vimscripts code goes here.
-
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
 " }}}
 
-
-" STATUS LINE ------------------------------------------------------------ {{{
-
-" Status bar code goes here.
-
-" }}}
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}

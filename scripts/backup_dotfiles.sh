@@ -12,13 +12,13 @@ local_vimdir="$HOME/.vim"
 local_bashdir="$HOME"
 local_cfgdir="$HOME/.config"
 local_ideadir="$HOME"
-local_ombdir="$HOME"
+local_ombdir="$HOME/.oh-my-bash"
 local_scriptdir="$HOME/scripts"
 
-# Backup .vim directory
-if [[ -d "$local_vimdir" ]]; then
-    cp -R "$local_vimdir"/* "$dotfiles_vimdir"
-    echo "Backed up .vim to $dotfiles_vimdir"
+# Backup .vimrc
+if [[ -f "$local_vimdir/.vimrc" ]]; then
+    cp "$local_vimdir/.vimrc" "$dotfiles_vimdir"
+    echo "Backed up .vimrc to $dotfiles_vimdir/.vimrc"
 fi
 
 # Backup .bashrc
@@ -33,15 +33,21 @@ if [[ -f "$local_bashdir/.bash_profile" ]]; then
     echo "Backed up .bash_profile to $dotfiles_bashdir/.bash_profile"
 fi
 
-# Backup .config
-if [[ -d "$local_cfgdir" ]]; then
-    cp -R "$local_cfgdir"/alacritty "$dotfiles_cfgdir/alacritty"
+# Backup .oh-my-bash.sh
+if [[ -f "$local_ombdir/.oh-my-bash.sh" ]]; then
+    cp "$local_ombdir/.oh-my-bash.sh" "$dotfiles_ombdir"
+    echo "Backed up .oh-my-bash.sh to $dotfiles_ombdir"
+fi
+
+# Backup .config/alacritty
+if [[ -d "$local_cfgdir/alacritty" ]]; then
+    cp -R "$local_cfgdir/alacritty" "$dotfiles_cfgdir/alacritty"
     echo "Backed up .config to $dotfiles_cfgdir"
 fi
 
 # Backup .idea directory
-if [[ -d "$local_ideadir/.idea" ]]; then
-    cp -R "$local_ideadir/.idea" "$dotfiles_ideadir"
+if [[ -f "$local_ideadir/.ideavimrc" ]]; then
+    cp "$local_ideadir/.ideavimrc" "$dotfiles_ideadir"
     echo "Backed up .idea to $dotfiles_ideadir"
 fi
 
