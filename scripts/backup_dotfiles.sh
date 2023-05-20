@@ -61,7 +61,7 @@ fi
 for path in "${files_to_backup[@]}"; do
   if [[ -e "$path" ]]; then
     if ! cmp -s "$path" "${backup_paths[$path]}/$(basename "$path")"; then
-	  cp -R "$path" "${backup_paths[$path]}/$(basename "$path")"
+	  cp "$path" "${backup_paths[$path]}/$(basename "$path")"
       # git add "${backup_paths[$path]}/$(basename "$path")"
       echo "Backed up $( "$path") to ${backup_paths[$path]}"
       changes_made=true
