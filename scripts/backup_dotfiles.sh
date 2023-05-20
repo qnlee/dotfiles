@@ -1,60 +1,84 @@
 #!/bin/bash
 
-dotfiles_dir="$HOME/dotfiles"
-dotfiles_vimdir="$HOME/dotfiles/.vim"
-dotfiles_bashdir="$HOME/dotfiles/.bash"
-dotfiles_cfgdir="$HOME/dotfiles/.config"
-dotfiles_ideadir="$HOME/dotfiles/.idea"
-dotfiles_ombdir="$HOME/dotfiles/.oh-my-bash"
-dotfiles_scriptdir="$HOME/dotfiles/scripts"
+DOTFILES="$HOME/dotfiles"
 
+# Temp mappings, might move local files around later
+declare -A backup_paths=(
+  ["$HOME/.vim/.vimrc"]="$DOTFILES/.vim/.vimrc"
+  ["$HOME/.bashrc"]="$DOTFILES/.bash/.bashrc"
+  ["$HOME/.bash_profile"]="$DOTFILES/.bash/.bash_profile"
+  ["$HOME/.ideavimrc"]="$DOTFILES/.idea/.ideavimrc"
+  ["$HOME/.oh-my-bash/.oh-my-bash.sh"]="$DOTFILES/.oh-my-bash/.oh-my-bash.sh"
+  ["$HOME/.config/alacritty/alacritty.yml"]="$DOTFILES/.config/alacritty/alacritty.yml"
+  ["$HOME/.config/nvim/init.vim"]="$DOTFILES/.config/nvim/init.vim"
+)
+
+# TODO: get rid of these or use them in mappings too
 local_vimdir="$HOME/.vim"
 local_bashdir="$HOME"
 local_cfgdir="$HOME/.config"
 local_ideadir="$HOME"
 local_ombdir="$HOME/.oh-my-bash"
 local_scriptdir="$HOME/scripts"
+# local_gitpromptdir="/opt/homebrew/opt/bash-git-prompt/share"
 
-# Backup .vimrc
-if [[ -f "$local_vimdir/.vimrc" ]]; then
-    cp "$local_vimdir/.vimrc" "$dotfiles_vimdir"
-    echo "Backed up .vimrc to $dotfiles_vimdir/.vimrc"
+# Files to back up
+files_to_backup=(
+    "$local_vimdir/.vimrc"
+ 	"$local_bashdir/.bashrc"
+ 	"$local_bashdir/.bash_profile"
+	"$local_ombdir/.oh-my-bash.sh"
+	"$local_ideadir/.ideavimrc"
+  	"$local_cfgdir/alacritty/alacritty.yml"
+  	"$local_cfgdir/nvim/init.vim"
+  	# "$local_gitpromptdir/gitprompt.sh"
+)
+
+# Set the current date as branch name
+BRANCH_NAME=$(date +'%Y%m%d')
+
+# Initialize changed flag
+changes_made=false
+
+# Checkout to dev branch
+cd "$DOTFILES"
+if git show-ref --quiet refs/heads/"$BRANCH_NAME"; then
+  if [[ ! "$(git rev-parse --abbrev-ref HEAD)" == "$BRANCH_NAME" ]]; then
+  	git checkout "$BRANCH_NAME"
+  fi
+else
+  git checkout -b "$BRANCH_NAME"
 fi
 
-# Backup .bashrc
-if [[ -f "$local_bashdir/.bashrc" ]]; then
-    cp "$local_bashdir/.bashrc" "$dotfiles_bashdir/.bashrc"
-    echo "Backed up .bashrc to $dotfiles_bashdir/.bashrc"
+# Backup scripts
+if ! cmp -s "$path" "${backup_paths[$path]}/$(basename "$path")"; then
+    cp -R "$local_scriptdir"/* "$DOTFILES/scripts/"
+    changes_made=true
+    echo "Backed up scripts to $DOTFILES/scripts/"
 fi
 
-# Backup .bash_profile
-if [[ -f "$local_bashdir/.bash_profile" ]]; then
-    cp "$local_bashdir/.bash_profile" "$dotfiles_bashdir/.bash_profile"
-    echo "Backed up .bash_profile to $dotfiles_bashdir/.bash_profile"
+# Backup specific files
+for path in "${files_to_backup[@]}"; do
+  if [[ -e "$path" ]]; then
+    if ! cmp -s "$path" "${backup_paths[$path]}"; then
+	  cp "$path" "${backup_paths[$path]}"
+      # git add "${backup_paths[$path]}/$(basename "$path")"
+      echo "Backed up $( "$path") to ${backup_paths[$path]}"
+      changes_made=true
+    fi
+  fi
+done
+
+# Commit changes if any were made
+if [[ "$changes_made" == true ]]; then
+  git add "."
+  git commit -m "Update via backup: $(date +'%Y-%m-%d %H:%M:%S')"
+  echo "Changes committed"
+else
+  echo "No changes made"
 fi
 
-# Backup .oh-my-bash.sh
-if [[ -f "$local_ombdir/.oh-my-bash.sh" ]]; then
-    cp "$local_ombdir/.oh-my-bash.sh" "$dotfiles_ombdir"
-    echo "Backed up .oh-my-bash.sh to $dotfiles_ombdir"
-fi
-
-# Backup .config/alacritty
-if [[ -d "$local_cfgdir/alacritty" ]]; then
-    cp -R "$local_cfgdir/alacritty" "$dotfiles_cfgdir/alacritty"
-    echo "Backed up .config to $dotfiles_cfgdir"
-fi
-
-# Backup .idea directory
-if [[ -f "$local_ideadir/.ideavimrc" ]]; then
-    cp "$local_ideadir/.ideavimrc" "$dotfiles_ideadir"
-    echo "Backed up .idea to $dotfiles_ideadir"
-fi
-
-# Backup scripts directory
-if [[ -d "$local_scriptdir" ]]; then
-    cp -R "$local_scriptdir"/* "$dotfiles_scriptdir"
-    echo "Backed up scripts to $dotfiles_scriptdir"
-fi
-
+# Checkout to main and return to original dir
+git checkout main
+cd -
 echo "Dotfiles backup completed!"
