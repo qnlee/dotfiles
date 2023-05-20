@@ -4,13 +4,13 @@ DOTFILES="$HOME/dotfiles"
 
 # Temp mappings, might move local files around later
 declare -A backup_paths=(
-    ["$HOME/.vim/.vimrc"]="$DOTFILES/.vim/.vimrc"
-  	["$HOME/.bashrc"]="$DOTFILES/.bash/.bash_profile"
-	["$HOME/.bash_profile"]="$DOTFILES/.bash/.bash_profile"
-  	["$HOME/.ideavimrc"]="$DOTFILES/.idea/.ideavimrc"
-  	["$HOME/.oh-my-bash/.oh-my-bash.sh"]="$DOTFILES/.oh-my-bash/.oh-my-bash.sh"
-	["$HOME/.config/alacritty/alacritty.yml"]="$DOTFILES/.config/alacritty/alacritty.yml"
-	["$HOME/.config/nvim/init.vim"]="$DOTFILES/.config/nvim/init.vim"
+  ["$HOME/.vim/.vimrc"]="$DOTFILES/.vim/.vimrc"
+  ["$HOME/.bashrc"]="$DOTFILES/.bash/.bash_profile"
+  ["$HOME/.bash_profile"]="$DOTFILES/.bash/.bash_profile"
+  ["$HOME/.ideavimrc"]="$DOTFILES/.idea/.ideavimrc"
+  ["$HOME/.oh-my-bash/.oh-my-bash.sh"]="$DOTFILES/.oh-my-bash/.oh-my-bash.sh"
+  ["$HOME/.config/alacritty/alacritty.yml"]="$DOTFILES/.config/alacritty/alacritty.yml"
+  ["$HOME/.config/nvim/init.vim"]="$DOTFILES/.config/nvim/init.vim"
 )
 
 # TODO: get rid of these or use them in mappings too
