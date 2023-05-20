@@ -5,7 +5,7 @@ DOTFILES="$HOME/dotfiles"
 # Temp mappings, might move local files around later
 declare -A backup_paths=(
   ["$HOME/.vim/.vimrc"]="$DOTFILES/.vim/.vimrc"
-  ["$HOME/.bashrc"]="$DOTFILES/.bash/.bash_profile"
+  ["$HOME/.bashrc"]="$DOTFILES/.bash/.bashrc"
   ["$HOME/.bash_profile"]="$DOTFILES/.bash/.bash_profile"
   ["$HOME/.ideavimrc"]="$DOTFILES/.idea/.ideavimrc"
   ["$HOME/.oh-my-bash/.oh-my-bash.sh"]="$DOTFILES/.oh-my-bash/.oh-my-bash.sh"
