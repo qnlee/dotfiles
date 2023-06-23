@@ -13,10 +13,6 @@ declare -A backup_paths=(
   ["$HOME/.config/nvim/init.vim"]="$DOTFILES/.config/nvim/init.vim"
 )
 
-# TODO: get rid of these or use them in mappings too
-local_scriptdir="$HOME/scripts"
-# local_gitpromptdir="/opt/homebrew/opt/bash-git-prompt/share"
-
 # Files to back up
 files_to_backup=(
     "$HOME/.vim/.vimrc"
@@ -33,7 +29,8 @@ BRANCH_NAME=$(date +'%Y%m%d')
 
 # Initialize changed flag
 changes_made=false
-files_changed="\nFiles changed:\n"
+files_changed="Files changed:\n"
+
 # Checkout to dev branch
 cd "$DOTFILES"
 if git show-ref --quiet refs/heads/"$BRANCH_NAME"; then
@@ -60,7 +57,7 @@ for path in "${files_to_backup[@]}"; do
       # git add "${backup_paths[$path]}/$(basename "$path")"
       echo "Backed up $( "$path") to ${backup_paths[$path]}"
       changes_made=true
-      files_changed="$files_changed-$basename "$path")"
+      files_changed+="- $(basename "$path")\n"
     fi
   fi
 done
@@ -68,7 +65,7 @@ done
 # Commit changes if any were made
 if [[ "$changes_made" == true ]]; then
   git add "."
-  git commit -m "Update via backup: $(date +'%Y-%m-%d %H:%M:%S')$files_changed"
+  git commit -m "Update via backup: $(date +'%Y-%m-%d %H:%M:%S') \n$(files_changed)"
   echo "Changes committed"
 else
   echo "No changes made"
