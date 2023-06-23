@@ -14,23 +14,17 @@ declare -A backup_paths=(
 )
 
 # TODO: get rid of these or use them in mappings too
-local_vimdir="$HOME/.vim"
-local_bashdir="$HOME"
-local_cfgdir="$HOME/.config"
-local_ideadir="$HOME"
-local_ombdir="$HOME/.oh-my-bash"
 local_scriptdir="$HOME/scripts"
 # local_gitpromptdir="/opt/homebrew/opt/bash-git-prompt/share"
 
 # Files to back up
 files_to_backup=(
-    "$local_vimdir/.vimrc"
- 	"$local_bashdir/.bashrc"
- 	"$local_bashdir/.bash_profile"
-	"$local_ombdir/.oh-my-bash.sh"
-	"$local_ideadir/.ideavimrc"
-  	"$local_cfgdir/alacritty/alacritty.yml"
-  	"$local_cfgdir/nvim/init.vim"
+    "$HOME/.vim/.vimrc"
+ 	"$HOME/.bashrc"
+ 	"$HOME/.bash_profile"
+	"$HOME/.oh-my-bash/.oh-my-bash.sh"
+	"$HOME/.ideavimrc"
+  	"$HOME/.config/nvim/init.vim"
   	# "$local_gitpromptdir/gitprompt.sh"
 )
 
@@ -39,7 +33,7 @@ BRANCH_NAME=$(date +'%Y%m%d')
 
 # Initialize changed flag
 changes_made=false
-
+files_changed="\nFiles changed:\n"
 # Checkout to dev branch
 cd "$DOTFILES"
 if git show-ref --quiet refs/heads/"$BRANCH_NAME"; then
@@ -52,9 +46,10 @@ fi
 
 # Backup scripts
 if ! cmp -s "$path" "${backup_paths[$path]}/$(basename "$path")"; then
-    cp -R "$local_scriptdir"/* "$DOTFILES/scripts/"
+    cp -R "$HOME/scripts"/* "$DOTFILES/scripts/"
     changes_made=true
     echo "Backed up scripts to $DOTFILES/scripts/"
+    files_changed="$files_changed-$basename "$path")"
 fi
 
 # Backup specific files
@@ -65,6 +60,7 @@ for path in "${files_to_backup[@]}"; do
       # git add "${backup_paths[$path]}/$(basename "$path")"
       echo "Backed up $( "$path") to ${backup_paths[$path]}"
       changes_made=true
+      files_changed="$files_changed-$basename "$path")"
     fi
   fi
 done
@@ -72,7 +68,7 @@ done
 # Commit changes if any were made
 if [[ "$changes_made" == true ]]; then
   git add "."
-  git commit -m "Update via backup: $(date +'%Y-%m-%d %H:%M:%S')"
+  git commit -m "Update via backup: $(date +'%Y-%m-%d %H:%M:%S')$files_changed"
   echo "Changes committed"
 else
   echo "No changes made"
@@ -80,5 +76,5 @@ fi
 
 # Checkout to main and return to original dir
 git checkout main
-cd -
+back
 echo "Dotfiles backup completed!"
