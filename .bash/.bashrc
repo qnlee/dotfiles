@@ -60,6 +60,10 @@ alias lsa='ls -a --color=auto'
 alias rm='rm -r'
 
 # Dotfiles 
+alias bashprof='~/.bashprofile'
+alias bashrc='~/.bashrc'
+alias vimrc='~/.vim/.vimrc'
+
 alias brc='nvim ~/.bashrc'
 alias sbrc='source ~/.bashrc'
 alias vrc='nvim ~/.vim/.vimrc'
