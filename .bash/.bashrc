@@ -60,6 +60,10 @@ alias lsa='ls -a --color=auto'
 alias rm='rm -r'
 
 # Dotfiles 
+alias bashprof='~/.bashprofile'
+alias bashrc='~/.bashrc'
+alias vimrc='~/.vim/.vimrc'
+
 alias brc='nvim ~/.bashrc'
 alias sbrc='source ~/.bashrc'
 alias vrc='nvim ~/.vim/.vimrc'
@@ -110,7 +114,12 @@ export GOPATH=`go env GOPATH`
 # PATH
 export PATH=$PATH:$GOBIN
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
 export PATH="/.docker/bin:$PATH"
 export PATH="/opt/homebrew/opt/ncurses/bin:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
