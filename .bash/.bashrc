@@ -114,6 +114,7 @@ export GOPATH=`go env GOPATH`
 # PATH
 export PATH=$PATH:$GOBIN
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
 export PATH="/.docker/bin:$PATH"
 export PATH="/opt/homebrew/opt/ncurses/bin:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
