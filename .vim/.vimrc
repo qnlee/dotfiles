@@ -51,7 +51,7 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx " W
 
 " Attempt to fix mouse scroll on alacritty editor
 if $TERM == 'alacritty'
-  set ttymouse=sgr
+    set ttymouse=sgr
 endif
 
 " }}}
@@ -95,6 +95,21 @@ nnoremap <leader>` viw<esc>a`<esc>bi`<esc>lel
 nmap <leader>si <Plug>VimspectorStepInto
 nmap <leader>so <Plug>VimspectorStepOut
 nmap <leader>n <Plug>VimspectorStepOver
+
+inoremap <BS> <c-r>=Backspace()<CR>
+
+"Fix malfunctioning backspace
+func Backspace()
+  if col('.') == 1
+    if line('.')  != 1
+      return  "\<ESC>Dk$p\<S-J>i"
+    else
+      return ""
+    endif
+  else
+    return "\<Left>\<Del>"
+  endif
+endfunc
 
 " Search selection with * in visual mode
 function! VisualSelection(direction, extra_filter) range
