@@ -1,0 +1,9 @@
+{
+  "pinned": [
+    "app:open-settings",
+    "workspace:split-vertical",
+    "insert-current-date",
+    "insert-current-time",
+    "insert-template"
+  ]
+}

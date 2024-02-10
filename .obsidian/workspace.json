@@ -1,0 +1,237 @@
+{
+  "main": {
+    "id": "7ff1a0529423eb42",
+    "type": "split",
+    "children": [
+      {
+        "id": "df67c18d315e00e1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "58c1d5d04b33bdec",
+            "type": "leaf",
+            "pane-relief:history-v1": {
+              "pos": 0,
+              "stack": [
+                {
+                  "state": "{}",
+                  "eState": "{}"
+                }
+              ]
+            },
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f87e98e3e12ef4c3",
+    "type": "split",
+    "children": [
+      {
+        "id": "2b10115337f38e75",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2e56843eda461f4e",
+            "type": "leaf",
+            "pane-relief:history-v1": {
+              "pos": 0,
+              "stack": [
+                {
+                  "state": "{}",
+                  "eState": "{}"
+                }
+              ]
+            },
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "21cec18e236ebd9e",
+            "type": "leaf",
+            "pane-relief:history-v1": {
+              "pos": 0,
+              "stack": [
+                {
+                  "state": "{}",
+                  "eState": "{}"
+                }
+              ]
+            },
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "35d4c2a841c522cd",
+            "type": "leaf",
+            "pane-relief:history-v1": {
+              "pos": 0,
+              "stack": [
+                {
+                  "state": "{}",
+                  "eState": "{}"
+                }
+              ]
+            },
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "b3e9bd83973048c4",
+    "type": "split",
+    "children": [
+      {
+        "id": "a89bc7c2d80f0b76",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "cd19377e330cdd9f",
+            "type": "leaf",
+            "pane-relief:history-v1": {
+              "pos": 0,
+              "stack": [
+                {
+                  "state": "{}",
+                  "eState": "{}"
+                }
+              ]
+            },
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "41910ef341ec2751",
+            "type": "leaf",
+            "pane-relief:history-v1": {
+              "pos": 0,
+              "stack": [
+                {
+                  "state": "{}",
+                  "eState": "{}"
+                }
+              ]
+            },
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "effd2bb9b8b58592",
+            "type": "leaf",
+            "pane-relief:history-v1": {
+              "pos": 0,
+              "stack": [
+                {
+                  "state": "{}",
+                  "eState": "{}"
+                }
+              ]
+            },
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "7c7ced35b797cbb3",
+            "type": "leaf",
+            "pane-relief:history-v1": {
+              "pos": 0,
+              "stack": [
+                {
+                  "state": "{}",
+                  "eState": "{}"
+                }
+              ]
+            },
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "templater-obsidian:Templater": false,
+      "zk-prefixer:Create new unique note": false
+    }
+  },
+  "active": "2e56843eda461f4e",
+  "lastOpenFiles": [
+    "dotfiles/scripts/gitprompt.sh",
+    "dotfiles/scripts/backup_dotfiles.sh",
+    "dotfiles/scripts/gitc_dotfiles.sh",
+    "dotfiles/scripts/git-prompt.sh",
+    "dotfiles/README.md",
+    "dotfiles/scripts",
+    "dotfiles",
+    "Obsidian Vault/TODO ORGANIZE/Links.md",
+    "Obsidian Vault/TODO ORGANIZE",
+    "Obsidian Vault/How to fix stuff",
+    "Obsidian Vault/obsidian-templates/notes/books/20210829094933 - (Book) The war of art.md",
+    "Obsidian Vault/100% full disk space - fix.md",
+    "How to fix stuff",
+    "Obsidian Vault/Links for everywhere.md",
+    "TODO ORGANIZE/Links.md",
+    "Obsidian Vault/Random term stuff.md",
+    "Obsidian Vault/Untitled.md",
+    "TODO ORGANIZE"
+  ]
+}
