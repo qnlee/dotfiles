@@ -20,25 +20,26 @@ call plug#end()
 filetype on        " Enable type file detection. Vim will be able to try to detect the type of file in use.
 filetype plugin on " Enable plugins and load plugin for the detected file type.
 filetype indent on " Load an indent file for the detected file type.
+syntax on          " Turn syntax highlighting on.
+
 set nocompatible   " Disable compatibility with vi which can cause unexpected issues.
 set number         " Add numbers to each line on the left-hand side.
 set cursorline     " Highlight cursor line underneath the cursor horizontally.
 set cursorcolumn   " Highlight cursor line underneath the cursor vertically.
 set shiftwidth=4   " Set shift width to 4 spaces.
 set tabstop=4      " Set tab width to 4 columns.
-set expandtab      " Use space characters instead of tabs.
+" set expandtab      " Use space characters instead of tabs.
 set nobackup       " Do not save backup files.
+set noswapfile
+set nowritebackup
 set incsearch      " While searching though a file incrementally highlight matching characters as you type.
 set hlsearch       " Use highlighting when doing a search.
 set mouse=a
-set noswapfile
-set nowritebackup
 set title
 set wrap
 setlocal wrap
 set encoding=UTF-8
 
-syntax on          " Turn syntax highlighting on.
 colorscheme gruvbox
 set background=dark
 set cursorline
@@ -49,20 +50,15 @@ set wildmenu                                                                 " E
 set wildmode=list:longest                                                    " Make wildmenu behave like similar to Bash completion.
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx " Wildmenu will ignore files with these extensions.
 
-" Attempt to fix mouse scroll on alacritty editor
-if $TERM == 'alacritty'
-    set ttymouse=sgr
-endif
-
+set backspace=indent,eol,start                                               " Allow backspacing over everything in insert mode.
 " }}}
 
 " MAPPINGS --------------------------------------------------------------- {{{
 let mapleader = "\<Space>"
 
-noremap H ^
-noremap L $
-imap jj <Esc>
-set timeoutlen=1000
+noremap <leader>h ^
+noremap <leader>l $
+
 inoremap jj <Esc>
 cnoremap jk <Esc>
 vnoremap jl <Esc>
@@ -92,25 +88,6 @@ nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
 nnoremap <leader>` viw<esc>a`<esc>bi`<esc>lel
 
-nmap <leader>si <Plug>VimspectorStepInto
-nmap <leader>so <Plug>VimspectorStepOut
-nmap <leader>n <Plug>VimspectorStepOver
-
-inoremap <BS> <c-r>=Backspace()<CR>
-
-"Fix malfunctioning backspace
-func Backspace()
-  if col('.') == 1
-    if line('.')  != 1
-      return  "\<ESC>Dk$p\<S-J>i"
-    else
-      return ""
-    endif
-  else
-    return "\<Left>\<Del>"
-  endif
-endfunc
-
 " Search selection with * in visual mode
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -139,10 +116,10 @@ let g:NERDTreeShowHidden=1
 
 " This will enable code folding.
 " Use the marker method of folding.
-augroup filetype_vim
-    autocmd!
-    autocmd FileType vim setlocal foldmethod=marker
-augroup END
+" augroup filetype_vim
+"    autocmd!
+"    autocmd filetype vim setlocal foldmethod=marker
+" augroup end
 
 augroup mygroup
   autocmd!
@@ -157,3 +134,4 @@ augroup end
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}
+
